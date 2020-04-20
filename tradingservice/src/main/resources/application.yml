@@ -2,6 +2,10 @@ server:
   port: 9092
   servlet:
     context-path: /tradingService
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:5001/eureka/
 spring:
 #Db configuration 
   datasource:

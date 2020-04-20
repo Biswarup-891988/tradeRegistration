@@ -27,7 +27,7 @@ public class ResgistrationRestController {
   }
 
   @PostMapping("/doRegister")
-  public ResponseEntity createRegistration(@RequestBody User user) {
+  public ResponseEntity createRegistration(@RequestBody User user) throws Exception {
     User userdto = resgistrationService.save(user);
     HttpHeaders header = new HttpHeaders();
     header.add("Location", "/reg/user/" + userdto.getUserId());
@@ -38,7 +38,7 @@ public class ResgistrationRestController {
   @PostMapping("/doLogin")
   public ResponseEntity<User> userLogin(@RequestParam(name = "name") String name,
       @RequestParam(name = "password") String password) throws Exception {
-    User userDto= resgistrationService.validateUser(name, password);
+    User userDto = resgistrationService.validateUser(name, password);
     return new ResponseEntity<>(userDto, HttpStatus.ACCEPTED);
   }
 

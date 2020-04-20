@@ -25,8 +25,13 @@ public class RegistrationService {
     this.userPortfolioRepository = userPortfolioRepository;
   }
 
-  public User save(User user) {
-    return userRepository.save(user);
+  public User save(User user) throws Exception {
+    Optional<User> userDto = userRepository.findByName(user.getName());
+    if (userDto.isEmpty()) {
+      return userRepository.save(user);
+    } else {
+      throw new UserNotFoundException("User already registered");
+    }
   }
 
   public User validateUser(String userName, String password) throws Exception {
@@ -68,7 +73,7 @@ public class RegistrationService {
 
   public UserPortfolio doTrade(String name, String ticker, int units) throws UserNotFoundException {
     TradeInfo trade = webClient.build().get()
-        .uri("http://localhost:9092/tradingService/trade/getTradeDetails/" + ticker).retrieve()
+        .uri("http://trade-service/tradingService/trade/getTradeDetails/" + ticker).retrieve()
         .bodyToMono(TradeInfo.class).block();
     long investAmount = trade.getUnitPrice() * units;
     Optional<User> user = userRepository.findByName(name);
