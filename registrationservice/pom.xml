@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-<!-- 		<spring-cloud.version>Hoxton.SR3</spring-cloud.version> -->
+		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
 	</properties>
 
 	<dependencies>
@@ -32,10 +32,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
-<!-- 		<dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency> -->
+		</dependency>
 
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -64,7 +64,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-<!-- 
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -75,7 +75,7 @@
 				<scope>import</scope>
 			</dependency>
 		</dependencies>
-	</dependencyManagement> -->
+	</dependencyManagement>
 
 	<build>
 		<plugins>
