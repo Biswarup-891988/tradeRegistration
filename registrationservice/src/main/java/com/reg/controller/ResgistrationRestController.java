@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,8 +37,8 @@ public class ResgistrationRestController {
   }
 
   @PostMapping("/doLogin")
-  public ResponseEntity<User> userLogin(@RequestParam(name = "name") String name,
-      @RequestParam(name = "password") String password) throws Exception {
+  public ResponseEntity<User> userLogin(@RequestHeader(name = "name") String name,
+      @RequestHeader(name = "password") String password) throws Exception {
     User userDto = resgistrationService.validateUser(name, password);
     return new ResponseEntity<>(userDto, HttpStatus.ACCEPTED);
   }
@@ -62,7 +63,7 @@ public class ResgistrationRestController {
   }
 
   @PostMapping("/doTrade")
-  public ResponseEntity<UserPortfolio> tradeService(@RequestParam(name = "name") String name,
+  public ResponseEntity<UserPortfolio> tradeService(@RequestHeader(name = "name") String name,
       @RequestParam(name = "ticker") String ticker, @RequestParam(name = "units") int units)
       throws Exception {
     UserPortfolio userDto = resgistrationService.doTrade(name, ticker, units);

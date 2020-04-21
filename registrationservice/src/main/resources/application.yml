@@ -26,4 +26,10 @@ spring:
     name: resgistration-service
   jpa:
     hibernate:
-      ddl-auto: update    
+      ddl-auto: update
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - hystrix.stream 

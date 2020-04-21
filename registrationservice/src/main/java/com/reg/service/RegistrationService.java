@@ -3,11 +3,10 @@ package com.reg.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import org.springframework.web.reactive.function.client.WebClient;
 import com.reg.entity.User;
 import com.reg.entity.UserPortfolio;
 import com.reg.exception.PasswordException;
-import com.reg.exception.UserNotFoundException;
+import com.reg.exception.UserException;
 import com.reg.model.TradeInfo;
 import com.reg.repo.UserPortfolioRepository;
 import com.reg.repo.UserRepository;
@@ -16,13 +15,14 @@ public class RegistrationService {
 
   private final UserRepository userRepository;
   private final UserPortfolioRepository userPortfolioRepository;
-  private final WebClient.Builder webClient;
-
-  public RegistrationService(UserRepository userRepository, WebClient.Builder webClient,
-      UserPortfolioRepository userPortfolioRepository) {
+  private final TradeService tradeService;
+  
+  public RegistrationService(UserRepository userRepository,
+      UserPortfolioRepository userPortfolioRepository,
+      TradeService tradeService) {
     this.userRepository = userRepository;
-    this.webClient = webClient;
     this.userPortfolioRepository = userPortfolioRepository;
+    this.tradeService = tradeService;
   }
 
   public User save(User user) throws Exception {
@@ -30,7 +30,7 @@ public class RegistrationService {
     if (userDto.isEmpty()) {
       return userRepository.save(user);
     } else {
-      throw new UserNotFoundException("User already registered");
+      throw new UserException("User already registered");
     }
   }
 
@@ -38,7 +38,7 @@ public class RegistrationService {
 
     Optional<User> user = userRepository.findByName(userName);
     if (user.isEmpty()) {
-      throw new UserNotFoundException("Invalid User");
+      throw new UserException("Invalid User");
     } else {
       User userDto = user.get();
       if (!password.equals(userDto.getPassword())) {
@@ -56,7 +56,7 @@ public class RegistrationService {
   public User getUserInfo(String userName) throws Exception {
     Optional<User> user = userRepository.findByName(userName);
     if (user.isEmpty()) {
-      throw new UserNotFoundException("Invalid User");
+      throw new UserException("Invalid User");
     } else {
       return user.get();
     }
@@ -65,20 +65,18 @@ public class RegistrationService {
   public Set<UserPortfolio> getUserPortfolio(String name) throws Exception {
     Optional<User> user = userRepository.findByName(name);
     if (user.isEmpty()) {
-      throw new UserNotFoundException("Invalid User");
+      throw new UserException("Invalid User");
     } else {
       return userPortfolioRepository.findByUserId(user.get().getUserId());
     }
   }
 
-  public UserPortfolio doTrade(String name, String ticker, int units) throws UserNotFoundException {
-    TradeInfo trade = webClient.build().get()
-        .uri("http://trade-service/tradingService/trade/getTradeDetails/" + ticker).retrieve()
-        .bodyToMono(TradeInfo.class).block();
+  public UserPortfolio doTrade(String name, String ticker, int units) throws UserException {
+    TradeInfo trade = tradeService.getTickerDetails(ticker);
     long investAmount = trade.getUnitPrice() * units;
     Optional<User> user = userRepository.findByName(name);
     if (user.isEmpty()) {
-      throw new UserNotFoundException("Invalid User");
+      throw new UserException("Invalid User");
     } else {
       User userInfo = user.get();
       long remainingAmount = 0;

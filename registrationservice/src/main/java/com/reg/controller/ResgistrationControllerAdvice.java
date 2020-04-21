@@ -5,13 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.reg.exception.PasswordException;
-import com.reg.exception.UserNotFoundException;
+import com.reg.exception.UserException;
 
 @RestControllerAdvice
 public class ResgistrationControllerAdvice {
 
   @ExceptionHandler
-  public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
+  public ResponseEntity<String> handleUserNotFoundException(UserException ex) {
     return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
   }
 

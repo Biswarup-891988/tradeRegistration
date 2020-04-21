@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "de657b91-f38c-475a-b0a5-493c31379673",
+		"name": "TradingApplication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:9090/registrationService/reg/doRegister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Amit\",\n\t\"password\": \"567t542\",\n\t\"balance\": 50000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/registrationService/reg/doRegister",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"registrationService",
+						"reg",
+						"doRegister"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:9092/tradingService/trade/getAllTradeDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9092/tradingService/trade/getAllTradeDetails",
+					"host": [
+						"localhost"
+					],
+					"port": "9092",
+					"path": [
+						"tradingService",
+						"trade",
+						"getAllTradeDetails"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:9092/tradingService/trade/getTradeDetails/TCS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9092/tradingService/trade/getTradeDetails/TCS",
+					"host": [
+						"localhost"
+					],
+					"port": "9092",
+					"path": [
+						"tradingService",
+						"trade",
+						"getTradeDetails",
+						"TCS"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:9090/registrationService/reg/doTrade?name=Biswarup&ticker=TCS&units=15",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "name",
+						"value": "Biswarup",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9090/registrationService/reg/doTrade?ticker=TCS&units=15",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"registrationService",
+						"reg",
+						"doTrade"
+					],
+					"query": [
+						{
+							"key": "ticker",
+							"value": "TCS"
+						},
+						{
+							"key": "units",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:9090/registrationService/reg/doLogin?name=Biswarup&password=12345",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "name",
+						"value": "Biswarup",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "12345",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9090/registrationService/reg/doLogin",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"registrationService",
+						"reg",
+						"doLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:9090/registrationService/reg/user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9090/registrationService/reg/user",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"registrationService",
+						"reg",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:9090/registrationService/reg/user/Amit",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9090/registrationService/reg/user/Amit",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"registrationService",
+						"reg",
+						"user",
+						"Amit"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
